@@ -6,13 +6,13 @@ WiseCP Integration Module for the VirtFusion API
 ****************************************************
 ![VirtFusion for WiseCP](https://github.com/alfatarsos/virtfusion-for-wisecp/blob/main/Virt-Fusion-on-Wise-CP-Client-Area.png)
 
-# INTRODUCTION
+# Introduction
 
 The WiseCP billing system has several integrations available, including, among others, SolusVM 2, Virtualizor, and AutoVM. However, until now, it lacked an integration that allowed VPS provisioning in VirtFusion, either through a module provided by WiseCP itself – as often happens – or through a module provided by VirtFusion, as a natural stakeholder in this market.
 
 The now-ready and available integration addresses this situation, allowing the WiseCP billing system to now enable automatic provisioning and management of VPS provisioned from VirtFusion management nodes, substantially simplifying the lives of clients, providers, and support.
 
-# WHY DESIGN AN INTEGRATION FOR VIRTFUSION
+# Why design an integration for VirtFusion
 
 The VirtFusion system is one of the most widely used provisioning and management systems in this sector, and it is also the system that best suits the preferences of consumers who purchase this type of service (VPS/VDS), as well as many service providers. Among the three main options available – SolusVM, Virtualizor, and VirtFusion – it offers several advantages, namely a mature approach to a set of problems common to providers and clients; tested solutions that are relatively easy to understand and implement for those with a minimum of knowledge in Linux system administration; an interface that is simple, easy to use, and straightforward on the client side; and a particularly well-designed interface for the provider, with a set of system-exclusive functionalities that improve management and the final product for the client.
 
@@ -20,7 +20,7 @@ In turn, the WiseCP system, among the billing systems currently available on the
 
 Designing an integration between both systems is, therefore, perfectly natural and reasonable, given that both converge on a consistent and improved user experience for the Client, with high quality of service, high availability, and easy management of the various elements necessary for both parties.
 
-# COMPATIBILITY AND FUNCTIONALITIES OF THIS MODULE
+# Compatibility and functionalities of this module
 
 The module designed here primarily integrates functions from the VirtFusion API v1.0, which is in use and continuously expanding its functionalities (as of 09-12-2025), and is only tested to work, at least, with the latest version of WiseCP (v3.1.9.7, released in November 2025).
 
@@ -59,7 +59,7 @@ Completed and now available features include:
     - Primary Location (HypervisorGroup function for deployment - with Auto option for the 1st location chosen by VirtFusion).
 - Very appealing interface, gradually colored, easy for the Client to use and with more functions without leaving the Client Area compared to any of the currently existing VirtFusion integrations for WHMCS, Blesta, ClientExec, HostBill, Upmind and Paymenter - as is the normal and natural preference of the Client and as they would normally have in other systems (for example Virtualizor, SolusVM and Proxmox).
 
-# TECHNICAL NOTES AND KNOWN BUGS
+# Technical notes and known bugs
 
 Naturally, integrating something like this into the WiseCP system has challenges and particularities, as happens with any integration. The existing ones for this module do not prevent its regular operation, but they should be mentioned.
 
@@ -74,6 +74,6 @@ Naturally, integrating something like this into the WiseCP system has challenges
 - If you want to allocate more than one hard drive to a given Service Plan, it is not provisioned in this module, but rather in the Service Plan itself, along with the VirtFusion Management Node, in the appropriate area. Due to technical reasons, this option was not activated, despite being exposed in the API, as it was understood that configuration per plan is sufficient, and allocated disks are frequently fixed in their paths, even in High Availability situations.
 - Assigning more than one IPv6 address during provisioning is not supported due to limitations of the VirtFusion API. If the Client wants more than one address or a higher subnet range, this must be managed in the Management Node itself.
 
-# MODULE AVAILABILITY
+# Module availability
 
 This module will be available during the month of December, in a suitable location to be designated, for provisioning, once complete. For more information, a support request can be submitted on the c-servers.co.uk website.
