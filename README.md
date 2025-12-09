@@ -4,6 +4,7 @@ An integration module for WiseCP that connects VirtFusion's API to WiseCP and al
 ****************************************************
 WiseCP Integration Module for the VirtFusion API
 ****************************************************
+![VirtFusion for WiseCP](https://github.com/alfatarsos/virtfusion-for-wisecp/blob/main/Virt-Fusion-on-Wise-CP-Client-Area.png)
 
 INTRODUCTION
 
