@@ -10,8 +10,8 @@ The module itself is commercial, proprietary software and is not
 open-source. Source code is provided exclusively to paying customers
 under a commercial license and is subject to redistribution restrictions.
 
+Licensing-specific terms are available on this repository.
 No production source code is distributed through this repository. 
-Licensing terms are available on this repository through the "license.md" file.
 
 ****************************************************
 WiseCP Integration Module for the VirtFusion API
