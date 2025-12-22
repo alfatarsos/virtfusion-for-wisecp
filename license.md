@@ -14,8 +14,12 @@ The license includes twelve (12) months of software updates from the
 date of purchase. Access to updates, new versions, and support after
 this period requires an active update entitlement.
 
-You may modify the software solely for internal use within the licensed
-entity. Redistribution, sublicensing, sharing, or making the software
+You may modify the software solely for internal use within the licensed entity.
+Contributions or improvements made by the licensed entities may be shared with
+Centerfield Ltd, who reserves the right to review, approve and incorporate them
+into the official software distribution.
+
+Redistribution, sublicensing, sharing, or making the software
 available to third parties outside the licensed entity or Centerfield Ltd, 
 whether in original or modified form, is strictly prohibited.
 
