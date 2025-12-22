@@ -27,14 +27,23 @@ Se e quando vier a confirmar-se compatibilidade de próximas versões, este fich
 As funcionalidades concluídas e agora disponíveis incluem:
 
 - Aprovisionamento automático de VPS em apenas 20 segundos;
+
 - Suspensão automática de VPS em até 60 segundos, dependentes de atualização do crontab PHP em WiseCP;
+
 - Cancelamento de VPS, inserido de imediato no sistema VirtFusion, e executado após 5 minutos, conforme predefinição da API;
+
 - Integração da mais recente funcionalidade de VNC na Área de Cliente para o Utilizador, criada em Novembro, conforme à nova versão VirtFusion 6.1, através de extração da UUID e formatação do caminho no navegador de forma automática;
+
 - Informação na Área de Cliente do estado da sua VPS: Online / Em Aprovisionamento / Offline;
+
 - Feedback na Área Cliente da execução de operações (Iniciar / Reiniciar / Encerrar / Forçar Paragem);
+
 - Ligação direta ao Painel VirtFusion por link externo, em 2 botões (geral no botão "Painel", para password reset no botão respetivo) - útil para temas como gestão de NAT ou fine-tuning;
+
 - Comunicação direta na Área de Cliente para recuperação de password de acesso ao Painel sem necessitar de e-mail, diretamente no ecrã, para comodidade;
+
 - Informação sumária ao Cliente através de parâmetros dinâmicos por call à API, designadamente de:
+
         - Hostname associado em sistema no VirtFusion;
         - Localização principal (função HypervisorGroup no VirtFusion) e IP principal (predefine a IPv6 em qualquer subnet; caso não haja, assume IPv4)
         - IPv4, IPv4 NAT e IPv6 disponíveis, em todas as formulações e gamas, até em IPv6 /128;
@@ -46,13 +55,17 @@ As funcionalidades concluídas e agora disponíveis incluem:
         - Sistema Operativo alocado no Sistema, parâmetro dinâmico;
         - Nome do Servidor Dedicado a que o Cliente ficou alocado (reforço da informação na barra de título);
         - Localização principal (reforço da informação na barra de título).
+        
 - Operação certificada e fácil de executar em dispositivos móveis, com botões grandes de várias cores, fáceis de tocar e de fácil representação, que se adaptam naturalmente ao formato 1:1 destes dispositivos;
+
 - Backoffice suporta as seguintes opções em Product Settings » Core:
+
         - Definir Plano de Serviço a aplicar ao Cliente
         - Ativar/Desativar IPv6 (opção assim fornecida pela API VirtFusion) - definição de número de IPs tem que ser feita em BO VirtFusion pelo provedor, aplicada ao Plano de Serviço para o qual vamos realizar deployment, no Painel de Controlo respetivo;
         - Número de IPv4s a Adicionar (valor entre 0 e 4, permite aprovisionamento IPv6-only, IPv4 NAT ou Full IPv4);
         - Location ID manual (sistema de fallback caso não seja possível obter HypervisorGroup);
         - Localização principal (função de HypervisorGroup para deployment - com opção Auto para a 1ª localização escolhida pelo VirtFusion).
+        
 - Interface muito apelativa, gradativamente colorida, fácil de utilizar para o Cliente e com mais funções sem sair da Área de Cliente face a qualquer das integrações atualmente existentes de VirtFusion para WHMCS, Blesta, ClientExec, HostBill, Upmind e Paymenter - conforme é preferência normal e natural do Cliente e conforme já teria habitualmente noutros sistemas (por exemplo Virtualizor, SolusVM e Proxmox).
 
 NOTAS TÉCNICAS E BUGS CONHECIDOS
@@ -72,4 +85,4 @@ Naturalmente, integrar algo assim no sistema WiseCP tem desafios e particularida
 
 DISPONIBILIZAÇÃO DO MÓDULO
 
-Este módulo será disponibilizado durante o mês de Dezembro, em local adequado a designar, para aprovisionamento, encontrando-se completo. Para mais informações, poderá ser enviado um pedido de suporte no website c-servers.co.uk.
+Este módulo já se encontra disponível para compra, desde 22-12-2025, a partir deste website (em Inglês): https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
