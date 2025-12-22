@@ -1,4 +1,4 @@
-VirtFusion for WiseCP – Commercial License
+VirtFusion Integration Module for WiseCP – Commercial License
 
 Copyright © 2025 Centerfield Ltd.
 Developed by Tiago Pereira.
