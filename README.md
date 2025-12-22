@@ -76,4 +76,4 @@ Naturally, integrating something like this into the WiseCP system has challenges
 
 # Module availability
 
-This module will be available during the month of December, in a suitable location to be designated, for provisioning, once complete. For more information, a support request can be submitted on the c-servers.co.uk website.
+This module is now available for purchase from 22-12-2025, here: https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
