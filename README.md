@@ -3,6 +3,20 @@ An integration module for WiseCP that connects VirtFusion's API to WiseCP and al
 
 ****************************************************
 WiseCP Integration Module for the VirtFusion API
+
+## About this repository
+
+This repository contains documentation and illustrative material for the
+**VirtFusion for WiseCP** module.
+
+The module itself is commercial, proprietary software and is not
+open-source. Source code is provided exclusively to paying customers
+under a commercial license and is subject to redistribution restrictions.
+
+No production source code is distributed through this repository.
+
+For purchasing and licensing information, please visit c-servers.co.uk.
+
 ****************************************************
 ![VirtFusion for WiseCP](https://github.com/alfatarsos/virtfusion-for-wisecp/blob/main/Virt-Fusion-on-Wise-CP-Client-Area.png)
 
