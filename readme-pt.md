@@ -14,7 +14,7 @@ O sistema VirtFusion é um dos sistemas de aprovisionamento e gestão mais utili
 
 Por sua vez, o sistema WiseCP, de entre os sistemas de faturação atualmente disponíveis no mercado, é um dos mais poderosos e resilientes, competindo em vários aspetos com o atual líder do setor e possuindo uma interface extremamente apelativa e com bastante funcionalidade.
 
-Desenhar uma integração entre ambos os sistemas é, por isso, algo perfeitamente natural e razoável, dado que ambos convergem numa experiência de utilização consistente e melhorada para o Cliente, com elevada qualidade de serviço, elevada disponibilidade e fácil gestão dos diversos elementos necesśarios a ambas as partes.
+Desenhar uma integração entre ambos os sistemas é, por isso, algo perfeitamente natural e razoável, dado que ambos convergem numa experiência de utilização consistente e melhorada para o Cliente, com elevada qualidade de serviço, elevada disponibilidade e fácil gestão dos diversos elementos necessários a ambas as partes.
 
 COMPATIBILIDADE E FUNCIONALIDADES DESTE MÓDULO
 
@@ -85,4 +85,4 @@ Naturalmente, integrar algo assim no sistema WiseCP tem desafios e particularida
 
 DISPONIBILIZAÇÃO DO MÓDULO
 
-Este módulo já se encontra disponível para compra, desde 22-12-2025, a partir deste website (em Inglês): https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
+Este módulo já se encontra disponível para compra, desde 22-12-2025, a partir deste website (em Inglês): https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp.
