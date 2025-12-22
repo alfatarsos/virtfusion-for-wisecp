@@ -16,8 +16,8 @@ this period requires an active update entitlement.
 
 You may modify the software solely for internal use within the licensed
 entity. Redistribution, sublicensing, sharing, or making the software
-available to third parties outside the licensed entity, whether in
-original or modified form, is strictly prohibited.
+available to third parties outside the licensed entity or Centerfield Ltd, 
+whether in original or modified form, is strictly prohibited.
 
 Centerfield Ltd. reserves the right to suspend or revoke access to
 software updates and related services in the event of license violation
