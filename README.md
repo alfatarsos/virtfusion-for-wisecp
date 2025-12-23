@@ -58,7 +58,7 @@ Completed and now available features include:
     - Available Bandwidth, expressed in GB;
     - Number of vCPUs allocated in the System (supplemented by the information in the WiseCP Specifications)
     - GB of memory allocated in the System (supplemented by the information in the WiseCP Specifications)
-    - Hard Disk allocated in the System (supplemented by the information in the WiseCP Specifications);
+    - Size of the first Hard Disk allocated in the System (supplemented by the information in the WiseCP Specifications);
     - Operating System allocated in the System, dynamic parameter;
     - Name of the Dedicated Server to which the Client is allocated (reinforcement of information in the title bar);
     - Main location (reinforcement of information in the title bar).
@@ -77,6 +77,7 @@ Naturally, integrating something like this into the WiseCP system has challenges
 
 - SSO only happens if the client is already logged in, for security reasons and different approaches to SSO by VirtFusion and WiseCP. If not, prior login is requested, and subsequent logins will remain active until the installed cookie expires or the client logs out of the VirtFusion area.
 - VNC only works if the client has previously logged into VirtFusion. If not, a window will open asking them to do so.
+- The "Hostname" field on WiseCP, when creating manual orders to users on the admin area, shall be left blank. Filling it will block auto-provisioning on VirtFusion.
 - The "Set Panel Password" field, which does not require an email, forces the client to manually note the displayed key, as the field does not allow editing. This works this way by default but is also a security measure (prevents clipboard hijacking of sensitive data that could compromise the client's security).
 - External connections to the Panel and "Password Reset" depend on the Hostname being inserted also in the IP address field of "Server Settings", for provisioning of a management node with the module, in WiseCP. Otherwise, only the IP address will appear and the connection will not be established with SSL. This is why it is essential that the configuration is done correctly internally by the provider.
 - Due to limitations arising from internal communication within the WiseCP system, the communication of Power functions (on/off/restart/force stop) and VPS status in the module, while sent correctly to the VirtFusion system, doesn't have a direct return communication from it, but a semi-direct communication. The displayed feedback is handled semi-direct on the Client Area, using an "educated guess" system. This involves verifying the maximum reasonable time for each requested operation and providing the time allotted for completion on the respective VPS (25 seconds for Start/Restart, 40 seconds for Shutdown/Power Off). The client or Provider can always confirm the exact status of the VPS via VNC or by logging into the VirtFusion Panel to manage it – this will help with any technical errors.
