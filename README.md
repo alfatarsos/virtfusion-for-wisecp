@@ -34,7 +34,7 @@ Designing an integration between both systems is, therefore, perfectly natural a
 
 # Compatibility and functionalities of this module
 
-The module designed here primarily integrates functions from the VirtFusion API v1.0, which is in use and continuously expanding its functionalities (as of 09-12-2025), and is only tested to work, at least, with the latest version of WiseCP (v3.1.9.7, released in November 2025).
+The module designed here primarily integrates functions from the VirtFusion API v1.0, which is in use and continuously expanding its functionalities (as of 01-06-2026), and is tested to work on WiseCP (3.1.9.7, 3.1.9.8 and 3.1.9.8.1) under PHP 8.2, 8.3, 8.4 and 8.5, and also is working with VirtFusion 6.1+ and 7.0+ versions.
 
 Although no problems are expected with older versions of WiseCP (3.1.9.x), nor with version 5.0 under development – ​​provided that WiseCP does not break the logic of existing ecosystem integrations with other required coding – compatibility with any other version is not guaranteed, as it has only been tested on this version to date – test at your own risk.
 
@@ -88,4 +88,4 @@ Naturally, integrating something like this into the WiseCP system has challenges
 
 # Module availability
 
-This module is now available for purchase from 22-12-2025, here: https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
+This module is available for purchase from 22-12-2025, here: https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
