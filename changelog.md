@@ -1,6 +1,14 @@
 Changelog
 
-01/03/2026 - v1.1.0 - Developed by Tiago Pereira
+01/06/2026 - v1.1.0.1 
+
+Minor versioning to attest new certification following new software launches:
+
+» Certified as working and supporting: VirtFusion 7.0+ (launched May 21st, 2026)
+» Certified as working and supporting: VirtFusion v3.1.9.8+ (launched April / May 2026)
+» Certified as working and supporting: PHP 8.2, 8.3, 8.4 and 8.5, without any errors (confirmed May 30/31st, 2026)
+
+01/03/2026 - v1.1.0
 
 This module has the following changes:
 
