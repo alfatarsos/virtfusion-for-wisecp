@@ -1,6 +1,4 @@
 GOTCHAS (EN)
-
-Known Limitations & Gotchas
   
 Naturally, integrating a virtualization platform like VirtFusion into WiseCP comes with specific challenges and quirks, as with any billing-to-control-panel integration. The items below do not prevent regular operation of the module, but they are important for providers and administrators to be aware of.            
   
