@@ -1,6 +1,16 @@
 Changelog
 
-01/06/2026 - v1.1.0.1 
+23/11/2026 - v1.0.1
+
+Minor versioning - the module has the following changes:
+
+» Reverified with Gemini 4 Neon for code quality and security; 4 security bugs and 5 quality-of-life bugs were corrected
+
+» **From this date onwards, this module has been open-sourced and it's available for everyone. This is the first open-source module I have published in GitHub.** 
+
+» First release with published files and direct .tar.gz packaging.
+
+01/06/2026 - v1.0.0.2
 
 Minor versioning to attest new certification following new software launches:
 
@@ -10,7 +20,7 @@ Minor versioning to attest new certification following new software launches:
 
 » Certified as working and supporting: PHP 8.2, 8.3, 8.4 and 8.5, without any errors (confirmed May 30/31st, 2026)
 
-01/03/2026 - v1.1.0
+01/03/2026 - v1.0.0.1
 
 This module has the following changes:
 
