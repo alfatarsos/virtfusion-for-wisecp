@@ -1,0 +1,50 @@
+GOTCHAS (EN)
+
+  # Known Limitations & Gotchas
+  
+    Naturally, integrating a virtualization platform like VirtFusion into WiseCP comes with specific challenges and quirks, as with any billing-to-control-panel    
+    integration. The items below do not prevent regular operation of the module, but they are important for providers and administrators to be aware of.            
+  
+    - **Single Sign-On (SSO) behavior:** Due to security constraints and differing SSO approaches between VirtFusion and WiseCP, SSO only completes seamlessly if   
+    the customer already has an active VirtFusion session. Otherwise, the customer will be prompted to log in first; subsequent sessions will remain active until   
+    the session cookie expires or the customer explicitly logs out of VirtFusion.
+    - **VNC Console access:** Direct VNC console access only works if the customer is already logged in to VirtFusion. If they are not signed in yet, opening the   
+    VNC console will open a window prompting them to log in first.
+    - **Manual order creation in WiseCP Admin:** When manually creating a VPS order for a user from the WiseCP Admin Area, filling in the **Hostname** field will   
+    prevent automatic provisioning from running. Leave the hostname field blank so auto-provisioning works as expected.
+    - **"Define Panel Password" dialog:** The "Define Panel Password" action (which does not require sending an e-mail) displays the generated password in a        
+    non-editable dialog, requiring the customer to note it down manually. This is both the default behavior and an intentional security measure to help prevent     
+    clipboard hijacking of sensitive credentials that could compromise the customer's account.
+    - **Panel & Password Reset external links (SSL):** The external **Panel** and **Forgot Password / Password Reset** links rely on having the VirtFusion          
+    **Hostname** also configured in the WiseCP server's **IP** field (or server host settings). Otherwise, only the raw IP address will be used and SSL/TLS         
+    connections will fail. Proper internal server configuration by the provider is therefore essential.
+    - **Power controls & VPS status synchronization:** Due to internal communication limitations within WiseCP, power actions (Start, Restart, Shutdown, Force Power
+    Off) and the displayed VPS status are not synced in real time with VirtFusion. Instead, the module uses a semi-direct "educated guess" mechanism calibrated to  
+    the maximum reasonable completion time for each operation (**25 seconds** for Start/Restart, **40 seconds** for Shutdown/Power Off). Both the customer and the  
+    provider can always verify the exact live state of the VPS via VNC or by logging directly into the VirtFusion panel, which also helps diagnose any technical    
+    issues.
+    - **Minimum node storage & CPU performance requirements:** To ensure reliable power operations and a smooth client-area experience, providers must maintain at  
+    least **80 MB/s** disk throughput at **64k** (or higher) block sizes, **40 MB/s** at **4k**, and avoid overly aggressive vCPU throttling or sustained **iowait  
+    above 25%**. Failing to meet these baselines will noticeably degrade the customer's experience when managing their VPS from the Client Area.
+    - **Manual Location ID:** The **Manual Location ID** option (under the product's **Core** tab) has not been extensively pre-tested.
+    - **Multiple virtual disks:** Provisioning more than one virtual disk per VPS is not handled by this module; instead, additional disks should be configured     
+    directly on the corresponding **Package / Service Plan** inside the VirtFusion Management Node. This was an intentional design decision—even though the API     
+    exposes multi-disk parameters—since plan-level configuration is generally sufficient and allocated disk paths are typically fixed even in High Availability (HA)
+    environments.
+    - **Multiple IPv6 addresses:** Allocating more than one IPv6 address during provisioning is not supported due to VirtFusion API limitations. If a customer      
+    requires multiple IPv6 addresses or a larger subnet range, this must be managed directly on the VirtFusion Management Node.
+
+GOTCHAS (PT-PT)
+
+Naturalmente, integrar algo assim no sistema WiseCP tem desafios e particularidades, como acontece com qualquer integração. As existentes para este módulo não impedem a regular operação do mesmo, mas devem ser mencionadas.
+
+- SSO só acontece caso cliente já esteja com login realizado, por motivos de segurança e diferentes abordagens ao SSO por parte de VirtFusion e WiseCP. Se não estiver, é pedido o login prévio, e logins subsequentes manter-se-ão ativos até que o cookie instalado expire ou o cliente faça logoff da área VirtFusion.
+- VNC só funciona se cliente tiver feito login previamente no VirtFusion. Se não o tiver feito, será aberta uma janela a pedi-lo.
+- Em situações de criação manual de ordem de compra da VPS para um utilizador, feito na área de Admin do WiseCP, em que se preencha o hostname para a VPS, o auto-aprovisionamento deixa de funcionar. Este campo tem que ser deixado em branco para que funcione corretamente.
+- O campo de "Definir Password do Painel", que não precisa de e-mail, obriga a que o cliente tome nota manualmente da chave mostrada, dado que o campo não permite edição. Isto opera assim por defeito mas também é uma medida de segurança (impede clipboard hijacking de um dado sensível que pode comprometer a segurança do cliente).
+- As ligações externas ao Painel e "Reset de Password" dependem de, no IP em WiseCP, estar definido novamente o Hostname. Caso contrário, apenas aparecerá o IP e a ligação não se estabelece com SSL. É por isso essencial que a configuração esteja bem realizada internamente pelo provedor.
+- A comunicação das funções de Power (ligar/desligar/reiniciar/forçar paragem) e estado da VPS no módulo, por limitações derivadas da comunicação interna no sistema WiseCP, não estão em sintonia direta com o sistema VirtFusion, mas são trabalhadas semidiretas, de acordo com um sistema de "educated guess", em que foi realizada a verificação do tempo máximo razoável para cada uma das operações e é dado o tempo para que elas completem na VPS respetiva (25 segundos em Start/Restart, 40 segundos em Shutdown/Power Off). O cliente ou o Provedor poderá sempre confirmar o estado exato da VPS através de VNC, ou iniciando sessão no Painel VirtFusion para executar a gestão respetiva - isto ajudará com qualquer erro técnico.
+- Para assegurar a comunicação correta das funções de Power e fiabilidade na experiência final para o Cliente, é obrigatório observar pelo Provedor no mínimo uma velocidade de disco rígido superior a 80 MB/s em 64k ou superior, 40 MB/s em 4k, e evitar uma restrição excessivamente significativa de performance em vCPUs, ou iowait superior a 25%. A falha na observação de um destes parâmetros por parte do Provedor piorará substantivamente a experiência ao Cliente na interação com a VPS na sua Área de Cliente.
+- A função de Manual Location ID (em Core) não está testada previamente.
+- Caso se pretenda colocar mais que 1 disco rígido num dado Plano de Serviço, este não é aprovisionado neste módulo, mas sim no próprio Plano de Serviço junto do Management Node do VirtFusion, na área adequada. Por opção técnica, não foi ativada esta opção, apesar de exposta na API, uma vez que se entendeu ser suficiente a configuração por plano e os discos alocados são frequentemente fixos nos seus caminhos, mesmo em situações de High Availability.
+- A atribuição de mais que 1 endereço IPv6 no aprovisionamento não é suportada por limitações da API de VirtFusion. Caso o Cliente pretenda mais que um endereço ou uma subnet range superior, isto deverá ser gerido no próprio Management Node.
