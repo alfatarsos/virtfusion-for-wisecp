@@ -1,91 +1,102 @@
-# virtfusion-for-wisecp
-An integration module for WiseCP that connects VirtFusion's API to WiseCP and allows for immediate deployment.
+# VirtFusion Server Module for WiseCP
 
-## About this repository
+An open-source **WiseCP** server provisioning module for **[VirtFusion](https://virtfusion.com/)** (KVM VPS virtualization control panel), built against the VirtFusion v1 API.
 
-This repository contains documentation and illustrative material for the
-**VirtFusion for WiseCP** module.
+## Features
 
-The module itself is commercial, proprietary software and is not
-open-source. Source code is provided exclusively to paying customers
-under a commercial license and is subject to redistribution restrictions.
+- **Automated Provisioning & Lifecycle Management**
+  - Automatic VirtFusion user lookup/creation using WiseCP's client ID (`extRelationId`)
+  - Automated VPS creation (`create`), `suspend`, `unsuspend`, and `terminate`
+  - Configurable package, location (Hypervisor Group or VirtFusion auto-selection), default OS template, IPv4 quantity (including IPv6-only / NAT support), and IPv6 toggle
+- **Client Area Dashboard**
+  - Clean, responsive status and resource cards (IPv4 / NAT indicator, IPv6, traffic, hypervisor IP for NAT setups, CPU, RAM, disk, OS, hostname, location)
+  - Power controls: **Start**, **Restart**, **Shutdown**, and **Force Power Off**
+  - **Single Sign-On (SSO)** redirect directly into the VirtFusion control panel
+  - **Direct VNC Console** button and **Define Panel Password** / **Forgot Password** helpers
+- **Admin Area Controls**
+  - Manual `server_id` and `user_id` overrides on orders
+  - Mirrored power, SSO, and password actions for staff
+- **Multi-language Support (9 locales included)**
+  - English (`en`), Portuguese (`pt`, `pt-PT`), French (`fr`), Spanish (`es`), German (`de`), Arabic (`ar`), and Simplified Chinese (`zh-CN`, `chinese`)
+- **Security Hardened**
+  - Full TLS certificate verification (`CURLOPT_SSL_VERIFYPEER` / `CURLOPT_SSL_VERIFYHOST`) enabled by default
+  - Automatic redaction of passwords, API tokens, and SSO authentication URLs before writing to WiseCP module logs
+  - Cryptographically secure password generation (`random_int`)
+  - Escaped client/admin HTML & JS outputs and strict API path parameter casting
 
-Licensing-specific terms are available on this repository.
-No production source code is distributed through this repository. 
+## Requirements
 
-****************************************************
-WiseCP Integration Module for the VirtFusion API
-****************************************************
-![VirtFusion for WiseCP](https://github.com/alfatarsos/virtfusion-for-wisecp/blob/main/Virt-Fusion-on-Wise-CP-Client-Area.png)
+- **WiseCP** 3.x+
+- **PHP** 7.4 or 8.x with `curl` and `json` extensions
+- **VirtFusion** Control Panel with API v1 access and a valid TLS certificate
 
-# Introduction
+## Installation
 
-The WiseCP billing system has several integrations available, including, among others, SolusVM 2, Virtualizor, and AutoVM. However, until now, it lacked an integration that allowed VPS provisioning in VirtFusion, either through a module provided by WiseCP itself – as often happens – or through a module provided by VirtFusion, as a natural stakeholder in this market.
+1. Download or clone this repository.
+2. Copy the `VirtFusion/` directory into your WiseCP installation under:
+   ```text
+   coremio/modules/Servers/VirtFusion/
+   ```
+3. Verify the resulting structure:
+   ```text
+   coremio/modules/Servers/VirtFusion/
+   ├── VirtFusion.php
+   ├── api.php
+   ├── config.php
+   ├── lang/
+   │   ├── ar.php
+   │   ├── chinese.php
+   │   ├── de.php
+   │   ├── en.php
+   │   ├── es.php
+   │   ├── fr.php
+   │   ├── pt-PT.php
+   │   ├── pt.php
+   │   └── zh-CN.php
+   └── pages/
+       ├── clientAreahome.php
+       ├── create-form-elements.php
+       └── order-detail.php
+   ```
 
-The now-ready and available integration addresses this situation, allowing the WiseCP billing system to now enable automatic provisioning and management of VPS provisioned from VirtFusion management nodes, substantially simplifying the lives of clients, providers, and support.
+## Configuration
 
-# Why design an integration for VirtFusion
+### 1. Create a VirtFusion API Token
 
-The VirtFusion system is one of the most widely used provisioning and management systems in this sector, and it is also the system that best suits the preferences of consumers who purchase this type of service (VPS/VDS), as well as many service providers. Among the three main options available – SolusVM, Virtualizor, and VirtFusion – it offers several advantages, namely a mature approach to a set of problems common to providers and clients; tested solutions that are relatively easy to understand and implement for those with a minimum of knowledge in Linux system administration; an interface that is simple, easy to use, and straightforward on the client side; and a particularly well-designed interface for the provider, with a set of system-exclusive functionalities that improve management and the final product for the client.
+In your VirtFusion admin panel, generate an API token with permissions covering:
+- `connect`
+- Packages & Hypervisor Groups (read)
+- Media / OS Templates (read)
+- Users (read, create, authentication tokens, reset password by external relation)
+- Servers (read, create, build, delete, power, suspend/unsuspend, VNC, network/traffic)
 
-In turn, the WiseCP system, among the billing systems currently available on the market, is one of the most powerful and resilient, competing in several aspects with the current industry leader and possessing an extremely appealing and highly functional interface.
+### 2. Add the Server in WiseCP
 
-Designing an integration between both systems is, therefore, perfectly natural and reasonable, given that both converge on a consistent and improved user experience for the Client, with high quality of service, high availability, and easy management of the various elements necessary for both parties.
+1. Navigate to **Services → Hosting Management → Server Settings → Add New Server**.
+2. Select **VirtFusion** as the Server Automation Type.
+3. Fill in:
+   - **Hostname:** Your VirtFusion panel hostname (e.g. `panel.example.com`)
+   - **Port:** `443` (or your custom HTTPS port)
+   - **SSL:** Enabled (recommended)
+   - **Access Hash:** Your VirtFusion Bearer API token
+4. Click **Test Connection** to verify connectivity (`GET /api/v1/connect`).
 
-# Compatibility and functionalities of this module
+### 3. Configure Products
 
-The module designed here primarily integrates functions from the VirtFusion API v1.0, which is in use and continuously expanding its functionalities (as of 01-06-2026), and is tested to work on WiseCP (3.1.9.7, 3.1.9.8 and 3.1.9.8.1) under PHP 8.2, 8.3, 8.4 and 8.5, and also is working with VirtFusion 6.1+ and 7.0+ versions.
+1. Edit or create a VPS product in WiseCP and open the **Core** tab.
+2. Select your VirtFusion server.
+3. Choose the **Package**, **Location (Hypervisor Group)** (or `-1` for VirtFusion auto-selection), **Default Operating System**, **IPv4 Quantity**, and **Enable IPv6**.
 
-Although no problems are expected with older versions of WiseCP (3.1.9.x), nor with version 5.0 under development – ​​provided that WiseCP does not break the logic of existing ecosystem integrations with other required coding – compatibility with any other version is not guaranteed, as it has only been tested on this version to date – test at your own risk.
+## Security Notes
 
-If and when compatibility with future versions is confirmed, this file will be updated in due course.
+- **Never commit** your VirtFusion API token or server hostnames to version control; all credentials are stored exclusively inside WiseCP's Server Settings.
+- TLS verification is enabled by default (`$verify_ssl = true` in `VirtFusionAPI`). Always use a valid TLS certificate on your VirtFusion control panel.
+- See [SECURITY.md](SECURITY.md) for reporting security vulnerabilities.
 
-Completed and now available features include:
+## Contributing
 
-- Automatic VPS provisioning in just 20 seconds;
-- Automatic VPS suspension in up to 60 seconds, dependent on updating the PHP crontab in WiseCP;
-- VPS cancellation, immediately inserted into the VirtFusion system, and executed after 5 minutes, as per API default;
-- Integration of the latest VNC functionality in the User Area, created in November, in accordance with the new VirtFusion 6.1 version, through UUID extraction and automatic path formatting in the browser;
-- Information in the Client Area on the status of your VPS: Online / Provisioning / Offline;
-- Feedback in the Client Area on the execution of operations (Start / Restart / Shut Down / Force Stop);
-- Direct connection to the VirtFusion Panel via external link, using 2 buttons (generally on the "Panel" button, for password reset on the respective button) - useful for topics such as NAT management or fine-tuning;
-- Direct communication in the Client Area for password recovery to access the Panel without needing email, directly on the screen, for convenience;
-- Summary information to the Client through dynamic parameters via API call, specifically:
-    - Hostname associated in the VirtFusion system;
-    - Main location (HypervisorGroup function in VirtFusion) and main IP (defaults IPv6 on any subnet; if none exists, assumes IPv4)
-    - IPv4, IPv4 NAT and IPv6 available, in all formulations and ranges, up to IPv6 /128;
-    - Dedicated server source IP, useful for NAT for the user;
-    - Available Bandwidth, expressed in GB;
-    - Number of vCPUs allocated in the System (supplemented by the information in the WiseCP Specifications)
-    - GB of memory allocated in the System (supplemented by the information in the WiseCP Specifications)
-    - Size of the first Hard Disk allocated in the System (supplemented by the information in the WiseCP Specifications);
-    - Operating System allocated in the System, dynamic parameter;
-    - Name of the Dedicated Server to which the Client is allocated (reinforcement of information in the title bar);
-    - Main location (reinforcement of information in the title bar).
-- Certified and easy-to-perform operation on mobile devices, with large, multi-colored buttons that are easy to touch and easily represented, naturally adapting to the 1:1 format of these devices;
-- Backoffice supports the following options in Product Settings » Core:
-    - Define Service Plan to apply to the Client
-    - Enable/Disable IPv6 (option provided by the VirtFusion API) - the number of IPs must be defined in the VirtFusion Back Office by the provider, applied to the Service Plan for which we will perform the deployment, in the respective Control Panel;
-    - Number of IPv4s to Add (value between 0 and 4, allows IPv6-only, IPv4 NAT or Full IPv4 provisioning);
-    - Manual Location ID (fallback system in case it is not possible to obtain HypervisorGroup);
-    - Primary Location (HypervisorGroup function for deployment - with Auto option for the 1st location chosen by VirtFusion).
-- Very appealing interface, gradually colored, easy for the Client to use and with more functions without leaving the Client Area compared to any of the currently existing VirtFusion integrations for WHMCS, Blesta, ClientExec, HostBill, Upmind and Paymenter - as is the normal and natural preference of the Client and as they would normally have in other systems (for example Virtualizor, SolusVM and Proxmox).
+Contributions, bug reports, and pull requests are welcome! Please make sure any new PHP code passes `php -l` cleanly and preserves HTML/JS escaping and log redaction.
 
-# Technical notes and known bugs
+## License
 
-Naturally, integrating something like this into the WiseCP system has challenges and particularities, as happens with any integration. The existing ones for this module do not prevent its regular operation, but they should be mentioned.
-
-- SSO only happens if the client is already logged in, for security reasons and different approaches to SSO by VirtFusion and WiseCP. If not, prior login is requested, and subsequent logins will remain active until the installed cookie expires or the client logs out of the VirtFusion area.
-- VNC only works if the client has previously logged into VirtFusion. If not, a window will open asking them to do so.
-- The "Hostname" field on WiseCP, when creating manual orders to users on the admin area, shall be left blank. Filling it will block auto-provisioning on VirtFusion.
-- The "Set Panel Password" field, which does not require an email, forces the client to manually note the displayed key, as the field does not allow editing. This works this way by default but is also a security measure (prevents clipboard hijacking of sensitive data that could compromise the client's security).
-- External connections to the Panel and "Password Reset" depend on the Hostname being inserted also in the IP address field of "Server Settings", for provisioning of a management node with the module, in WiseCP. Otherwise, only the IP address will appear and the connection will not be established with SSL. This is why it is essential that the configuration is done correctly internally by the provider.
-- Due to limitations arising from internal communication within the WiseCP system, the communication of Power functions (on/off/restart/force stop) and VPS status in the module, while sent correctly to the VirtFusion system, doesn't have a direct return communication from it, but a semi-direct communication. The displayed feedback is handled semi-direct on the Client Area, using an "educated guess" system. This involves verifying the maximum reasonable time for each requested operation and providing the time allotted for completion on the respective VPS (25 seconds for Start/Restart, 40 seconds for Shutdown/Power Off). The client or Provider can always confirm the exact status of the VPS via VNC or by logging into the VirtFusion Panel to manage it – this will help with any technical errors.
-- To ensure correct communication of Power functions and reliability in the final customer experience, the Provider is required to observe a minimum hard drive speed of 80 MB/s on 64k or higher, 40 MB/s on 4k, and avoid an excessively significant performance restriction on vCPUs, or iowait greater than 25%. Failure to observe any of these parameters by the Provider will substantially worsen the customer experience when interacting with the VPS in their Customer Area.
-- The Manual Location ID function (in Core) has not been previously tested.
-- If you want to allocate more than one hard drive to a given Service Plan, it is not provisioned in this module, but rather in the Service Plan itself, at the VirtFusion Management Node panel, in the appropriate area. Due to technical reasons, this option was not activated, despite being exposed in the API, as it was understood that configuration per plan is sufficient, and allocated disks are frequently fixed in their paths, even in High Availability situations.
-- Assigning more than one IPv6 address during provisioning is not supported due to limitations of the VirtFusion API. If the Client wants more than one address or a higher subnet range, this must be managed in the Management Node itself.
-
-# Module availability
-
-This module is available for purchase from 22-12-2025, here: https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
