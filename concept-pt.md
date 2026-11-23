@@ -68,21 +68,4 @@ As funcionalidades concluídas e agora disponíveis incluem:
         
 - Interface muito apelativa, gradativamente colorida, fácil de utilizar para o Cliente e com mais funções sem sair da Área de Cliente face a qualquer das integrações atualmente existentes de VirtFusion para WHMCS, Blesta, ClientExec, HostBill, Upmind e Paymenter - conforme é preferência normal e natural do Cliente e conforme já teria habitualmente noutros sistemas (por exemplo Virtualizor, SolusVM e Proxmox).
 
-NOTAS TÉCNICAS E BUGS CONHECIDOS
 
-Naturalmente, integrar algo assim no sistema WiseCP tem desafios e particularidades, como acontece com qualquer integração. As existentes para este módulo não impedem a regular operação do mesmo, mas devem ser mencionadas.
-
-- SSO só acontece caso cliente já esteja com login realizado, por motivos de segurança e diferentes abordagens ao SSO por parte de VirtFusion e WiseCP. Se não estiver, é pedido o login prévio, e logins subsequentes manter-se-ão ativos até que o cookie instalado expire ou o cliente faça logoff da área VirtFusion.
-- VNC só funciona se cliente tiver feito login previamente no VirtFusion. Se não o tiver feito, será aberta uma janela a pedi-lo.
-- Em situações de criação manual de ordem de compra da VPS para um utilizador, feito na área de Admin do WiseCP, em que se preencha o hostname para a VPS, o auto-aprovisionamento deixa de funcionar. Este campo tem que ser deixado em branco para que funcione corretamente.
-- O campo de "Definir Password do Painel", que não precisa de e-mail, obriga a que o cliente tome nota manualmente da chave mostrada, dado que o campo não permite edição. Isto opera assim por defeito mas também é uma medida de segurança (impede clipboard hijacking de um dado sensível que pode comprometer a segurança do cliente).
-- As ligações externas ao Painel e "Reset de Password" dependem de, no IP em WiseCP, estar definido novamente o Hostname. Caso contrário, apenas aparecerá o IP e a ligação não se estabelece com SSL. É por isso essencial que a configuração esteja bem realizada internamente pelo provedor.
-- A comunicação das funções de Power (ligar/desligar/reiniciar/forçar paragem) e estado da VPS no módulo, por limitações derivadas da comunicação interna no sistema WiseCP, não estão em sintonia direta com o sistema VirtFusion, mas são trabalhadas semidiretas, de acordo com um sistema de "educated guess", em que foi realizada a verificação do tempo máximo razoável para cada uma das operações e é dado o tempo para que elas completem na VPS respetiva (25 segundos em Start/Restart, 40 segundos em Shutdown/Power Off). O cliente ou o Provedor poderá sempre confirmar o estado exato da VPS através de VNC, ou iniciando sessão no Painel VirtFusion para executar a gestão respetiva - isto ajudará com qualquer erro técnico.
-- Para assegurar a comunicação correta das funções de Power e fiabilidade na experiência final para o Cliente, é obrigatório observar pelo Provedor no mínimo uma velocidade de disco rígido superior a 80 MB/s em 64k ou superior, 40 MB/s em 4k, e evitar uma restrição excessivamente significativa de performance em vCPUs, ou iowait superior a 25%. A falha na observação de um destes parâmetros por parte do Provedor piorará substantivamente a experiência ao Cliente na interação com a VPS na sua Área de Cliente.
-- A função de Manual Location ID (em Core) não está testada previamente.
-- Caso se pretenda colocar mais que 1 disco rígido num dado Plano de Serviço, este não é aprovisionado neste módulo, mas sim no próprio Plano de Serviço junto do Management Node do VirtFusion, na área adequada. Por opção técnica, não foi ativada esta opção, apesar de exposta na API, uma vez que se entendeu ser suficiente a configuração por plano e os discos alocados são frequentemente fixos nos seus caminhos, mesmo em situações de High Availability.
-- A atribuição de mais que 1 endereço IPv6 no aprovisionamento não é suportada por limitações da API de VirtFusion. Caso o Cliente pretenda mais que um endereço ou uma subnet range superior, isto deverá ser gerido no próprio Management Node.
-
-DISPONIBILIZAÇÃO DO MÓDULO
-
-Este módulo encontra-se disponível para compra desde 22-12-2025, a partir deste website (em Inglês): https://web.c-servers.co.uk/category/virtfusion-integration-module-for-wisecp.
